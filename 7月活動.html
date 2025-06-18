@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>苳蓓選品｜七月活動全攻略</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Dong Bae Signature -->
+    <!-- Application Structure Plan: A single-page, vertical-scrolling "Event Hub" design. It starts with a hero section featuring a countdown to create urgency. This is followed by interactive cards for the three main activities (Live Stream, Pre-order, Warm-up Event) that scroll to detailed sections. It includes a visual timeline for the main event, clear calls-to-action for social media, and an interactive poll to boost user engagement. This structure was chosen to transform a static announcement into an exploratory and engaging experience, perfectly suited for a mobile-first social media audience. -->
+    <!-- Visualization & Content Choices: 
+        - Report Info: Event Start Date -> Goal: Create Urgency -> Viz/Presentation: Dynamic Countdown Timer (JS) -> Interaction: Real-time updates. Justification: Immediately grabs attention.
+        - Report Info: Three Main Activities -> Goal: Organize/Inform -> Viz/Presentation: Interactive Cards (HTML/Tailwind) -> Interaction: Hover effects and smooth scroll to details. Justification: Cleanly structures information.
+        - Report Info: Event Timeline (July 1-6) -> Goal: Inform -> Viz/Presentation: Visual Timeline (HTML/CSS) -> Interaction: None. Justification: More intuitive than a text list.
+        - Report Info: User Poll -> Goal: Engage -> Viz/Presentation: Horizontal Bar Chart (Chart.js) -> Interaction: Buttons update chart data live. Justification: Creates a sense of community and participation.
+        - CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+            background-color: #FDFBF6;
+        }
+        .dongbae-purple { color: #5D3A9B; }
+        .dongbae-purple-bg { background-color: #5D3A9B; }
+        .dongbae-green { color: #1E4D45; }
+        .dongbae-green-bg { background-color: #1E4D45; }
+        .gradient-text {
+            background: linear-gradient(90deg, #5D3A9B, #1E4D45);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-fill-color: transparent;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 280px;
+            max-height: 300px;
+        }
+        .nav-link {
+            transition: color 0.3s, border-bottom-color 0.3s;
+        }
+    </style>
+</head>
+<body class="text-gray-800">
+
+    <header class="bg-white/80 backdrop-blur-md sticky top-0 z-50 shadow-sm">
+        <nav class="container mx-auto px-6 py-3 flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <span class="text-2xl font-bold dongbae-purple">동</span>
+                <span class="text-2xl font-bold dongbae-green">백</span>
+                <span class="text-xl font-bold dongbae-green">DongBae:K</span>
+            </div>
+            <div class="hidden md:flex items-center space-x-8">
+                <a href="#overview" class="nav-link text-gray-600 hover:dongbae-green border-b-2 border-transparent hover:border-green-500 pb-1">活動總覽</a>
+                <a href="#details" class="nav-link text-gray-600 hover:dongbae-green border-b-2 border-transparent hover:border-green-500 pb-1">精彩連線</a>
+                <a href="#poll" class="nav-link text-gray-600 hover:dongbae-green border-b-2 border-transparent hover:border-green-500 pb-1">卉元票選</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container mx-auto px-6 py-12 md:py-20">
+
+        <section class="text-center">
+            <h1 class="text-4xl md:text-6xl font-bold gradient-text mb-4">七月活動全攻略</h1>
+            <p class="text-lg md:text-xl text-gray-600 mb-8">精彩連線即將登場！</p>
+            
+            <div id="countdown" class="flex justify-center space-x-4 md:space-x-8 text-center my-10">
+                <div>
+                    <div id="days" class="text-4xl md:text-6xl font-bold dongbae-green">00</div>
+                    <div class="text-sm text-gray-500">天</div>
+                </div>
+                <div>
+                    <div id="hours" class="text-4xl md:text-6xl font-bold dongbae-green">00</div>
+                    <div class="text-sm text-gray-500">時</div>
+                </div>
+                <div>
+                    <div id="minutes" class="text-4xl md:text-6xl font-bold dongbae-green">00</div>
+                    <div class="text-sm text-gray-500">分</div>
+                </div>
+                <div>
+                    <div id="seconds" class="text-4xl md:text-6xl font-bold dongbae-purple">00</div>
+                    <div class="text-sm text-gray-500">秒</div>
+                </div>
+            </div>
+        </section>
+
+        <section id="overview" class="my-20 md:my-32 text-center">
+            <h2 class="text-3xl font-bold mb-4">活動總覽</h2>
+            <p class="max-w-2xl mx-auto text-gray-600 mb-12">我們為您整理了即將到來的所有精彩活動！點擊下方的卡片，快速了解您不容錯過的每一個亮點。</p>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <a href="#details" class="block bg-white p-8 rounded-2xl shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300">
+                    <div class="text-4xl mb-4">✨</div>
+                    <h3 class="text-xl font-bold dongbae-green mb-2">精彩連線</h3>
+                    <p class="text-gray-500">7/1 - 7/6 韓國選品即時互動，最新、最獨特的商品等著你！</p>
+                </a>
+                <a href="#preorder" class="block bg-white p-8 rounded-2xl shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300">
+                    <div class="text-4xl mb-4">🔥</div>
+                    <h3 class="text-xl font-bold dongbae-green mb-2">現正預購</h3>
+                    <p class="text-gray-500">等不及了嗎？部分絕美單品現正預購中，款式稀少，手慢無！</p>
+                </a>
+                <a href="#warmup" class="block bg-white p-8 rounded-2xl shadow-lg hover:shadow-2xl hover:-translate-y-2 transition-all duration-300">
+                    <div class="text-4xl mb-4">🤫</div>
+                    <h3 class="text-xl font-bold dongbae-green mb-2">神秘暖身</h3>
+                    <p class="text-gray-500">專為卉元們設計的快閃活動即將登場，敬請密切鎖定我們的最新消息！</p>
+                </a>
+            </div>
+        </section>
+        
+        <div class="bg-white rounded-2xl shadow-xl p-8 md:p-12 my-20 md:my-32">
+            <section id="details" class="mb-16">
+                <h2 class="text-3xl font-bold text-center mb-4">✨ 精彩連線詳情</h2>
+                <p class="max-w-3xl mx-auto text-gray-600 text-center mb-12">準備好加入我們的韓國連線派對了嗎？從 7/1(二) 到 7/6(日)，我們將在 IG 和 LINE 社群帶來即時的商品介紹和互動。記得設定好提醒，才不會錯過心儀的商品！</p>
+                
+                <div class="relative bg-amber-50 rounded-lg p-6 my-8 border-l-4 border-amber-400">
+                    <div class="absolute top-2 right-2 text-3xl opacity-20">🎁</div>
+                    <h4 class="font-bold text-amber-800 text-lg">連線期間優惠</h4>
+                    <p class="text-amber-700">活動期間訂單滿 <span class="font-bold text-xl">NT$2,000</span> 同享免運！</p>
+                </div>
+
+                <div class="w-full overflow-x-auto pb-4">
+                     <div class="flex items-center justify-between min-w-[600px] md:min-w-full my-8">
+                        <div class="flex-1 text-center">
+                            <div class="bg-purple-100 dongbae-purple rounded-full w-12 h-12 flex items-center justify-center mx-auto font-bold text-lg">7/1</div>
+                            <p class="text-sm mt-2">週二</p>
+                        </div>
+                        <div class="flex-1 h-1 bg-purple-200"></div>
+                        <div class="flex-1 text-center">
+                            <div class="bg-purple-100 dongbae-purple rounded-full w-12 h-12 flex items-center justify-center mx-auto font-bold text-lg">7/2</div>
+                             <p class="text-sm mt-2">週三</p>
+                        </div>
+                        <div class="flex-1 h-1 bg-purple-200"></div>
+                        <div class="flex-1 text-center">
+                            <div class="bg-purple-100 dongbae-purple rounded-full w-12 h-12 flex items-center justify-center mx-auto font-bold text-lg">7/3</div>
+                             <p class="text-sm mt-2">週四</p>
+                        </div>
+                        <div class="flex-1 h-1 bg-purple-200"></div>
+                        <div class="flex-1 text-center">
+                            <div class="bg-green-100 dongbae-green rounded-full w-12 h-12 flex items-center justify-center mx-auto font-bold text-lg">7/4</div>
+                             <p class="text-sm mt-2">週五</p>
+                        </div>
+                         <div class="flex-1 h-1 bg-green-200"></div>
+                        <div class="flex-1 text-center">
+                            <div class="bg-green-100 dongbae-green rounded-full w-12 h-12 flex items-center justify-center mx-auto font-bold text-lg">7/5</div>
+                             <p class="text-sm mt-2">週六</p>
+                        </div>
+                        <div class="flex-1 h-1 bg-green-200"></div>
+                        <div class="flex-1 text-center">
+                            <div class="bg-green-100 dongbae-green rounded-full w-12 h-12 flex items-center justify-center mx-auto font-bold text-lg">7/6</div>
+                             <p class="text-sm mt-2">週日</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="text-center mt-12">
+                     <h4 class="text-2xl font-bold mb-6">如何參與？</h4>
+                     <p class="text-gray-600 mb-6">請密切鎖定以下平台，詳細的連線時間表將於活動前公佈！</p>
+                     <div class="flex justify-center space-x-4">
+                         <a href="https://www.instagram.com/dongbae__k" target="_blank" class="dongbae-green-bg text-white px-6 py-3 rounded-full font-bold hover:opacity-90 transition-opacity">
+                             追蹤 Instagram
+                         </a>
+                         <a href="https://line.me/ti/g2/0yc_AxEublWQ94nLPa24mWTdJyr-0u22ofoVww?utm_source=invitation&utm_medium=link_copy&utm_campaign=default" target="_blank" class="border-2 border-green-800 dongbae-green px-6 py-3 rounded-full font-bold hover:bg-green-50 transition-colors">
+                             加入 LINE 社群
+                         </a>
+                     </div>
+                </div>
+            </section>
+        </div>
+
+
+        <section id="poll" class="my-20 md:my-32 text-center">
+            <h2 class="text-3xl font-bold mb-4">卉元來票選！</h2>
+            <p class="max-w-2xl mx-auto text-gray-600 mb-12">告訴我們您最期待什麼！您的每一個選擇都讓我們更有動力準備驚喜。</p>
+            <div class="chart-container">
+                <canvas id="pollChart"></canvas>
+            </div>
+            <div id="pollButtons" class="flex flex-col md:flex-row justify-center gap-4 mt-8">
+                <button data-index="0" class="poll-btn dongbae-purple-bg text-white px-6 py-3 rounded-full font-bold hover:opacity-90 transition-opacity">期待連線品牌劇透！</button>
+                <button data-index="1" class="poll-btn dongbae-purple-bg text-white px-6 py-3 rounded-full font-bold hover:opacity-90 transition-opacity">想看預購絕美單品！</button>
+                <button data-index="2" class="poll-btn dongbae-purple-bg text-white px-6 py-3 rounded-full font-bold hover:opacity-90 transition-opacity">好奇是什麼神秘活動！</button>
+            </div>
+        </section>
+
+    </main>
+    
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="container mx-auto px-6 text-center">
+            <p>&copy; 2025 DongBae:K. All rights reserved.</p>
+            <p class="text-sm text-gray-400 mt-2">苳蓓選品 - 為你帶來韓國的美好</p>
+            <div class="flex justify-center space-x-6 mt-4">
+                <a href="https://www.instagram.com/dongbae__k" target="_blank" class="text-gray-400 hover:text-white transition-colors">Instagram</a>
+                <a href="#" class="text-gray-400 hover:text-white transition-colors">LINE</a>
+            </div>
+        </div>
+    </footer>
+
+
+    <script>
+        const countdownDate = new Date("2025-07-01T00:00:00").getTime();
+
+        const countdownFunction = setInterval(function() {
+            const now = new Date().getTime();
+            const distance = countdownDate - now;
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById("days").innerText = days.toString().padStart(2, '0');
+            document.getElementById("hours").innerText = hours.toString().padStart(2, '0');
+            document.getElementById("minutes").innerText = minutes.toString().padStart(2, '0');
+            document.getElementById("seconds").innerText = seconds.toString().padStart(2, '0');
+
+            if (distance < 0) {
+                clearInterval(countdownFunction);
+                document.getElementById("countdown").innerHTML = "<div class='text-3xl font-bold dongbae-green'>活動進行中！</div>";
+            }
+        }, 1000);
+
+        const pollData = {
+            labels: ['品牌劇透', '預購單品', '神秘活動'],
+            datasets: [{
+                label: '期待指數',
+                data: [5, 3, 2],
+                backgroundColor: [
+                    'rgba(93, 58, 155, 0.6)',
+                    'rgba(30, 77, 69, 0.6)',
+                    'rgba(93, 58, 155, 0.4)',
+                ],
+                borderColor: [
+                    'rgba(93, 58, 155, 1)',
+                    'rgba(30, 77, 69, 1)',
+                    'rgba(93, 58, 155, 1)',
+                ],
+                borderWidth: 1
+            }]
+        };
+
+        const pollConfig = {
+            type: 'bar',
+            data: pollData,
+            options: {
+                indexAxis: 'y',
+                maintainAspectRatio: false,
+                responsive: true,
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    tooltip: {
+                        enabled: false
+                    }
+                },
+                scales: {
+                    x: {
+                        beginAtZero: true,
+                        grid: {
+                            display: false,
+                            drawBorder: false,
+                        },
+                        ticks: {
+                           display: false
+                        }
+                    },
+                    y: {
+                        grid: {
+                            display: false,
+                            drawBorder: false,
+                        },
+                        ticks: {
+                            color: '#1E4D45',
+                            font: {
+                                size: 14,
+                                weight: 'bold'
+                            }
+                        }
+                    }
+                }
+            }
+        };
+
+        const pollChartCanvas = document.getElementById('pollChart');
+        const pollChart = new Chart(pollChartCanvas, pollConfig);
+
+        const pollButtons = document.querySelectorAll('.poll-btn');
+        pollButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const index = button.dataset.index;
+                pollChart.data.datasets[0].data[index]++;
+                pollChart.update();
+                
+                const pollButtonContainer = document.getElementById('pollButtons');
+                pollButtonContainer.innerHTML = `<p class="text-lg dongbae-green font-bold">感謝您的投票！</p>`;
+            });
+        });
+        
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+
+</body>
+</html>
